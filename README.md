@@ -1,3 +1,3 @@
 # Pino
 
-a collection of Toram Online Calculations
+A collection of Toram Online formulas
