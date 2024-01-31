@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib"
@@ -10,7 +11,9 @@
   "scripts": {
     "dev": "npx tsc --watch",
     "test": "jest --detectOpenHandles",
-    "build": "npx tsc && npx esbuild src/index.ts --minify --bundle --outdir=lib"
+    "build": "npx tsc && npm run build:esm && npm run build:cjs",
+    "build:esm": "npx esbuild src/index.ts --bundle --target=esnext --minify --tree-shaking=true --format=esm --outfile=lib/index.esm.js",
+    "build:cjs": "npx esbuild src/index.ts --bundle --target=esnext --minify --tree-shaking=true --format=cjs --outfile=lib/index.js"
   },
   "keywords": [],
   "author": "jmmaa",
