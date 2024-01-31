@@ -1,5 +1,5 @@
 {
-  "name": "typescript-package-template",
+  "name": "pino",
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
     "build": "npx tsc && npx make-dir build && npm pack --pack-destination \"./build\""
   },
   "keywords": [],
-  "author": "",
+  "author": "jmmaa",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.2",
