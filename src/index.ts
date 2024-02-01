@@ -177,6 +177,20 @@ export const calculateBowStability = (
   DEX: number
 ) => Math.floor(weaponStability + (STR + DEX) / 20);
 
+export const calculateBowWithArrowStability = (
+  weaponStability: number,
+  arrowStability: number,
+  STR: number,
+  DEX: number
+) => calculateBowStability(weaponStability, STR, DEX) + arrowStability;
+
+export const calculateBowgunWithArrowStability = (
+  weaponStability: number,
+  arrowStability: number,
+  STR: number,
+  DEX: number
+) => calculateBowStability(weaponStability, STR, DEX) + 0.5 * arrowStability;
+
 export const calculateBowgunStability = (
   weaponStability: number,
   STR: number
@@ -302,3 +316,177 @@ export const calculateBareHandBaseAttack = (
   weaponAttack: number,
   STR: number
 ) => Math.floor(level + STR + 1 + weaponAttack);
+
+// Magic Attack
+
+export const calculateOneHandedSwordBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX);
+
+export const calculateTwoHandedSwordBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX + 1);
+
+export const calculateDualWieldBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX);
+
+export const calculateBowBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX);
+
+export const calculateBowgunBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX);
+
+export const calculateStaffBaseMagicAttack = (
+  level: number,
+  weaponAttack: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 4 * INT + DEX + weaponAttack);
+
+export const calculateMagicDeviceBaseMagicAttack = (
+  level: number,
+  weaponAttack: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 4 * INT + DEX + weaponAttack);
+
+export const calculateKnuckleBaseMagicAttack = (
+  level: number,
+  weaponAttack: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 4 * INT + DEX + 0.5 * weaponAttack);
+
+export const calculateHalberdBaseMagicAttack = (
+  level: number,
+
+  INT: number,
+  DEX: number,
+  AGI: number
+) => Math.floor(level + 2 * INT + DEX + AGI);
+
+export const calculateKatanaBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 1.5 * INT + DEX);
+
+export const calculateBareHandBaseMagicAttack = (
+  level: number,
+  INT: number,
+  DEX: number
+) => Math.floor(level + 3 * INT + DEX + 1);
+
+// armors
+
+export const calculateNormalArmorDefense = (
+  level: number,
+  VIT: number,
+  equipmentDefense: number
+) => level + VIT + equipmentDefense;
+
+export const calculateNormalArmorMagicDefense = (
+  level: number,
+  INT: number,
+  equipmentDefense: number
+) => level + INT + equipmentDefense;
+
+export const calculateNormalArmorDodge = (level: number, AGI: number) =>
+  level + AGI;
+
+export const calculateLightArmorDefense = (
+  level: number,
+  VIT: number,
+  equipmentDefense: number
+) => Math.floor(0.8 * level + 0.25 * VIT + equipmentDefense);
+
+export const calculateLightArmorMagicDefense = (
+  level: number,
+  INT: number,
+  equipmentDefense: number
+) => Math.floor(0.8 * level + 0.25 * INT + equipmentDefense);
+
+export const calculateLightArmorDodge = (level: number, AGI: number) =>
+  Math.floor(1.25 * level + 1.75 * AGI + 30);
+
+export const calculateHeavyArmorDefense = (
+  level: number,
+  VIT: number,
+  equipmentDefense: number
+) => Math.floor(1.2 * level + 2 * VIT + equipmentDefense);
+
+export const calculateHeavyArmorMagicDefense = (
+  level: number,
+  INT: number,
+  equipmentDefense: number
+) => Math.floor(1.2 * level + 2 * INT + equipmentDefense);
+
+export const calculateHeavyArmorDodge = (level: number, AGI: number) =>
+  Math.floor(0.5 * level + 0.75 * AGI - 15);
+
+export const calculateArmorLessDefense = (
+  level: number,
+  VIT: number,
+  equipmentDefense: number
+) => Math.floor(0.4 * level + 0.1 * VIT + equipmentDefense);
+
+export const calculateArmorLessMagicDefense = (
+  level: number,
+  INT: number,
+  equipmentDefense: number
+) => Math.floor(0.4 * level + 0.1 * INT + equipmentDefense);
+
+export const calculateArmorLessDodge = (level: number, AGI: number) =>
+  Math.floor(1.5 * level + 2 * AGI + 75);
+
+// physical, magic, and elemental resistance
+
+export const calculateResistance = (value: number) => {
+  if (value > 50) {
+    return __resistance(value, 50, 2);
+  } else {
+    return value;
+  }
+};
+
+const __resistance = (left: number, acc: number, penalty: number): number => {
+  if (left > 50) {
+    const value = 50 / penalty;
+    return __resistance(left - 50, acc + value, penalty * 2);
+  } else {
+    return Math.floor(acc);
+  }
+};
+
+// constant values
+
+export const LIGHT_ARMOR_ATTACK_SPEED = 0.5;
+
+export const HEAVY_ARMOR_ATTACK_SPEED = -0.5;
+
+export const DUAL_WIELD_ACCURACY = -0.55;
+
+export const DUAL_WIELD_CRITICAL_RATE = -0.55;
+
+export const SUB_WEAPON_SHIELD_ATTACK_SPEED = -0.5;
+
+export const SUB_WEAPON_MAGIC_DEVICE_ATTACK = -0.15;
+
+export const SUB_WEAPON_KNUCKLE_MAGIC_ATTACK = -0.15;
+
+export const SUB_WEAPON_ARROW_MAGIC_DEFENSE = -0.25;
+
+export const SUB_WEAPON_ARROW_PHYSICAL_DEFENSE = -0.25;
