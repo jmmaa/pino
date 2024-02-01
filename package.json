@@ -1,8 +1,8 @@
 {
-  "name": "pino",
-  "version": "0.0.1",
-  "description": "",
-  "main": "lib/index.js",
+  "name": "@jmmaa/pino",
+  "version": "0.0.1-dev",
+  "description": "Collection of formulas in Toram Online",
+  "main": "lib/index.main.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -13,17 +13,21 @@
     "test": "jest --detectOpenHandles",
     "build": "npx tsc && npm run build:esm && npm run build:cjs",
     "build:esm": "npx esbuild src/index.ts --bundle --target=esnext --minify --tree-shaking=true --format=esm --outfile=lib/index.esm.js",
-    "build:cjs": "npx esbuild src/index.ts --bundle --target=esnext --minify --tree-shaking=true --format=cjs --outfile=lib/index.js"
+    "build:cjs": "npx esbuild src/index.ts --bundle --target=esnext --minify --tree-shaking=true --format=cjs --outfile=lib/index.main.js"
   },
-  "keywords": [],
+  "keywords": [
+    "toram",
+    "toram-online",
+    "calculation"
+  ],
   "author": "jmmaa",
   "license": "MIT",
   "devDependencies": {
+    "@jmmaa/pino": "file:build/jmmaa-pino-0.0.1.tgz",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.2",
     "esbuild": "^0.20.0",
     "jest": "^29.5.0",
-    "make-dir-cli": "^3.1.0",
     "ts-jest": "^29.1.0",
     "typescript": "^5.1.6"
   }
