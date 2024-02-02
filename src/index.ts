@@ -1,3 +1,7 @@
+// accuracy
+export const calculateBaseAccuracy = (level: number, DEX: number) =>
+  Math.floor(level + DEX);
+
 // base attack speed
 
 export const calculateTwoHandedSwordBaseAttackSpeed = (
@@ -16,7 +20,7 @@ export const calculateBowBaseAttackSpeed = (
   level: number,
   AGI: number,
   DEX: number
-) => Math.floor(Math.floor(75 + level + 3 * AGI + (AGI + 2 * DEX - 1) / 10));
+) => Math.floor(75 + level + 3 * AGI + (AGI + 2 * DEX - 1) / 10);
 
 export const calculateBowgunBaseAttackSpeed = (
   level: number,
@@ -471,6 +475,28 @@ const __resistance = (left: number, acc: number, penalty: number): number => {
   }
 };
 
+// barrier cooldown
+
+export const calculateBarrierCooldown = (value: number) => value / -5 + 30;
+
+// degradation chance
+
+export const calculateChanceToPreventDegradation = (LUK: number) =>
+  Math.floor(LUK / 3.4);
+
+// player difficulty
+
+export const calculatePlayerCraftingDifficulty = (
+  proficiency: number,
+  TEC: number,
+  DEX: number
+) => proficiency + TEC / 2 + DEX / 6;
+
+// INT DTE
+
+export const calculateBaseDamageToElement = (INT: number) =>
+  Math.floor(INT / 10);
+
 // constant values
 
 export const LIGHT_ARMOR_ATTACK_SPEED = 0.5;
@@ -490,3 +516,7 @@ export const SUB_WEAPON_KNUCKLE_MAGIC_ATTACK = -0.15;
 export const SUB_WEAPON_ARROW_MAGIC_DEFENSE = -0.25;
 
 export const SUB_WEAPON_ARROW_PHYSICAL_DEFENSE = -0.25;
+
+// scratch
+
+console.log(calculateChanceToPreventDegradation(255));
