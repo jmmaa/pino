@@ -132,16 +132,11 @@ export const calculateSubWeaponAttackRefinementBonus = (
   refinementValue: number,
   baseSubWeaponAttack: number
 ) => {
-  /*
-    
-      the actual calculation based on phantom library is:
-    
-      Sub Weapon ATK = Attack value of subhand sword * 
-      (1 + Weapon ATK%/100 + refine of weapon²/200) + refine of weapon + flat Weapon ATK
-    
-      however it seems like its an inconsistency in the coryn.club example, imma search more on this.
-    
-      */
+  // the actual calculation based on phantom library is:
+  // Sub Weapon ATK = Attack value of subhand sword *
+  // (1 + Weapon ATK%/100 + refine of weapon²/200) + refine of weapon + flat Weapon ATK
+  // however it seems like its an inconsistency in the coryn.club example, imma search more on this.
+
   const percent = refinementValue ** 2 / 200;
 
   const flat = refinementValue;
