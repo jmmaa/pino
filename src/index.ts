@@ -3,6 +3,11 @@ export const calculateBaseAccuracy = (level: number, DEX: number) =>
   Math.floor(level + DEX);
 
 // base attack speed
+export const calculateOneHandedSwordBaseAttackSpeed = (
+  level: number,
+  AGI: number,
+  STR: number
+) => Math.floor(100 + level + 4 * AGI + (AGI + STR - 1) / 5);
 
 export const calculateTwoHandedSwordBaseAttackSpeed = (
   level: number,
