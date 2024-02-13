@@ -1,20 +1,35 @@
 // this is mostly just for semantics, but its basically just calculating
 // the multiplier, base, and flat values into total
 
-export const totalDEX = (baseDEX: number, multiDEX: number, flatDEX: number) =>
-  Math.floor(baseDEX * (1 + multiDEX) + flatDEX);
+export const totalDEX = (
+  baseDEX: number,
+  percentDEX: number,
+  flatDEX: number
+) => Math.floor(baseDEX * (1 + percentDEX) + flatDEX);
 
-export const totalSTR = (baseSTR: number, multiSTR: number, flatSTR: number) =>
-  Math.floor(baseSTR * (1 + multiSTR) + flatSTR);
+export const totalSTR = (
+  baseSTR: number,
+  percentSTR: number,
+  flatSTR: number
+) => Math.floor(baseSTR * (1 + percentSTR) + flatSTR);
 
-export const totalINT = (baseINT: number, multiINT: number, flatINT: number) =>
-  Math.floor(baseINT * (1 + multiINT) + flatINT);
+export const totalINT = (
+  baseINT: number,
+  percentINT: number,
+  flatINT: number
+) => Math.floor(baseINT * (1 + percentINT) + flatINT);
 
-export const totalAGI = (baseAGI: number, multiAGI: number, flatAGI: number) =>
-  Math.floor(baseAGI * (1 + multiAGI) + flatAGI);
+export const totalAGI = (
+  baseAGI: number,
+  percentAGI: number,
+  flatAGI: number
+) => Math.floor(baseAGI * (1 + percentAGI) + flatAGI);
 
-export const totalVIT = (baseVIT: number, multiVIT: number, flatVIT: number) =>
-  Math.floor(baseVIT * (1 + multiVIT) + flatVIT);
+export const totalVIT = (
+  baseVIT: number,
+  percentVIT: number,
+  flatVIT: number
+) => Math.floor(baseVIT * (1 + percentVIT) + flatVIT);
 
 // accuracy
 export const baseAccuracy = (level: number, totalDEX: number) =>
@@ -57,7 +72,7 @@ export const staffBaseAttackSpeed = (
   totalINT: number
 ) => Math.floor(60 + level + totalAGI + (4 * totalAGI + totalINT - 1) / 5);
 
-export const MagicDeviceBaseAttackSpeed = (
+export const magicDeviceBaseAttackSpeed = (
   level: number,
   totalAGI: number,
   totalINT: number
@@ -87,8 +102,8 @@ export const bareHandBaseAttackSpeed = (level: number, totalAGI: number) =>
 
 export const actionTimeReduction = (totalAttackSpeed: number) =>
   Math.floor((totalAttackSpeed - 1000) / 180) > 50
-    ? 0.5
-    : Math.floor((totalAttackSpeed - 1000) / 180) / 100;
+    ? 50
+    : Math.floor((totalAttackSpeed - 1000) / 180);
 
 // max hp
 
@@ -135,8 +150,8 @@ export const baseCastSpeed = (
 
 export const castTimeReduction = (totalCastSpeed: number) =>
   totalCastSpeed > 1000
-    ? (((totalCastSpeed - 1000) / 90) * 0.5 + 50) / 100
-    : totalCastSpeed / 20 / 100;
+    ? Math.floor(((totalCastSpeed - 1000) / 90) * 0.5 + 50)
+    : Math.floor(totalCastSpeed / 20);
 
 // ampr
 
@@ -189,26 +204,16 @@ export const dualWieldSubStability = (
 
 export const bowStability = (
   weaponStability: number,
-  totalSTR: number,
-  totalDEX: number
-) => Math.floor(weaponStability + (totalSTR + totalDEX) / 20);
-
-export const bowWithArrowStability = (
-  weaponStability: number,
   arrowStability: number,
   totalSTR: number,
   totalDEX: number
-) => bowStability(weaponStability, totalSTR, totalDEX) + arrowStability;
+) => Math.floor(weaponStability + (totalSTR + totalDEX) / 20) + arrowStability;
 
-export const bowgunWithArrowStability = (
+export const bowgunStability = (
   weaponStability: number,
   arrowStability: number,
-  totalSTR: number,
-  totalDEX: number
-) => bowStability(weaponStability, totalSTR, totalDEX) + 0.5 * arrowStability;
-
-export const bowgunStability = (weaponStability: number, totalSTR: number) =>
-  Math.floor(weaponStability + totalSTR / 20);
+  totalSTR: number
+) => Math.floor(weaponStability + totalSTR / 20) + 0.5 * arrowStability;
 
 export const staffStability = (weaponStability: number, totalSTR: number) =>
   Math.floor(weaponStability + totalSTR / 20);
@@ -291,15 +296,15 @@ export const staffBaseAttack = (
   level: number,
   weaponAttack: number,
   totalSTR: number,
-  INT: number
-) => Math.floor(level + totalSTR * 3 + INT + weaponAttack);
+  totalINT: number
+) => Math.floor(level + totalSTR * 3 + totalINT + weaponAttack);
 
 export const magicDeviceBaseAttack = (
   level: number,
   weaponAttack: number,
   totalAGI: number,
-  INT: number
-) => Math.floor(level + 2 * INT + 2 * totalAGI + weaponAttack);
+  totalINT: number
+) => Math.floor(level + 2 * totalINT + 2 * totalAGI + weaponAttack);
 
 export const knuckleBaseAttack = (
   level: number,
@@ -410,9 +415,9 @@ export const normalArmorDefense = (
 
 export const normalArmorMagicDefense = (
   level: number,
-  INT: number,
+  totalINT: number,
   equipmentDefense: number
-) => level + INT + equipmentDefense;
+) => level + totalINT + equipmentDefense;
 
 export const normalArmorDodge = (level: number, totalAGI: number) =>
   level + totalAGI;
@@ -425,9 +430,9 @@ export const lightArmorDefense = (
 
 export const lightArmorMagicDefense = (
   level: number,
-  INT: number,
+  totalINT: number,
   equipmentDefense: number
-) => Math.floor(0.8 * level + 0.25 * INT + equipmentDefense);
+) => Math.floor(0.8 * level + 0.25 * totalINT + equipmentDefense);
 
 export const lightArmorDodge = (level: number, totalAGI: number) =>
   Math.floor(1.25 * level + 1.75 * totalAGI + 30);
@@ -440,9 +445,9 @@ export const heavyArmorDefense = (
 
 export const heavyArmorMagicDefense = (
   level: number,
-  INT: number,
+  totalINT: number,
   equipmentDefense: number
-) => Math.floor(1.2 * level + 2 * INT + equipmentDefense);
+) => Math.floor(1.2 * level + 2 * totalINT + equipmentDefense);
 
 export const heavyArmorDodge = (level: number, totalAGI: number) =>
   Math.floor(0.5 * level + 0.75 * totalAGI - 15);
@@ -463,14 +468,8 @@ export const nakedDodge = (level: number, totalAGI: number) =>
   Math.floor(1.5 * level + 2 * totalAGI + 75);
 
 // physical, magic, and elemental resistance
-
 export const resistance = (value: number) => {
-  if (value > 0.5) {
-    const initial = value * 100;
-    return resistancePenalty(initial, 50, 2);
-  } else {
-    return value;
-  }
+  return resistancePenalty(value, 0, 1);
 };
 
 const resistancePenalty = (
@@ -482,15 +481,17 @@ const resistancePenalty = (
     const value = 50 / penalty;
     return resistancePenalty(raw - 50, acc + value, penalty * 2);
   } else {
-    return Math.floor(acc) / 100;
+    const value = raw / penalty;
+
+    return Math.floor(acc + value);
   }
 };
 
 // barrier cooldown
 
-// hard cap is rumored to be 10 secs cooldown, need to confirm this before changing
-// this func
-export const barrierCooldown = (value: number) => Math.floor(value / -5 + 30);
+// hard cap is rumored to be 10 secs cooldown, need to confirm this yet
+export const barrierCooldown = (value: number) =>
+  Math.floor(30 - (value / 100) * 20);
 
 // degradation chance
 
@@ -511,7 +512,8 @@ export const playerCraftingDifficulty = (
 
 // INT DTE
 
-export const baseDamageToElement = (INT: number) => Math.floor(INT / 10);
+export const baseDamageToElement = (totalINT: number) =>
+  Math.floor(totalINT / 10);
 
 // constant values
 
@@ -532,8 +534,3 @@ export const SUB_WEAPON_KNUCKLE_MagiC_ATTACK = -0.15;
 export const SUB_WEAPON_ARROW_MagiC_DEFENSE = -0.25;
 
 export const SUB_WEAPON_ARROW_PHYSICAL_DEFENSE = -0.25;
-
-// scratch
-
-console.log(chanceToPreventDegradation(255));
-console.log(resistance(2));
