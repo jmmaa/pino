@@ -1,35 +1,20 @@
 // this is mostly just for semantics, but its basically just calculating
-// the percent, base, and flat values into total
+// the multiplier, base, and flat values into total
 
-export const totalDEX = (
-  baseDEX: number,
-  percentDEX: number,
-  flatDEX: number
-) => Math.floor(baseDEX * (1 + percentDEX) + flatDEX);
+export const totalDEX = (baseDEX: number, multiDEX: number, flatDEX: number) =>
+  Math.floor(baseDEX * (1 + multiDEX) + flatDEX);
 
-export const totalSTR = (
-  baseSTR: number,
-  percentSTR: number,
-  flatSTR: number
-) => Math.floor(baseSTR * (1 + percentSTR) + flatSTR);
+export const totalSTR = (baseSTR: number, multiSTR: number, flatSTR: number) =>
+  Math.floor(baseSTR * (1 + multiSTR) + flatSTR);
 
-export const totalINT = (
-  baseINT: number,
-  percentINT: number,
-  flatINT: number
-) => Math.floor(baseINT * (1 + percentINT / 100) + flatINT);
+export const totalINT = (baseINT: number, multiINT: number, flatINT: number) =>
+  Math.floor(baseINT * (1 + multiINT) + flatINT);
 
-export const totalAGI = (
-  baseAGI: number,
-  percentAGI: number,
-  flatAGI: number
-) => Math.floor(baseAGI * (1 + percentAGI / 100) + flatAGI);
+export const totalAGI = (baseAGI: number, multiAGI: number, flatAGI: number) =>
+  Math.floor(baseAGI * (1 + multiAGI) + flatAGI);
 
-export const totalVIT = (
-  baseVIT: number,
-  percentVIT: number,
-  flatVIT: number
-) => Math.floor(baseVIT * (1 + percentVIT / 100) + flatVIT);
+export const totalVIT = (baseVIT: number, multiVIT: number, flatVIT: number) =>
+  Math.floor(baseVIT * (1 + multiVIT) + flatVIT);
 
 // accuracy
 export const baseAccuracy = (level: number, totalDEX: number) =>
@@ -255,7 +240,8 @@ export const magicStability = (stability: number) =>
   Math.floor((100 + stability) / 2);
 
 // drop rate
-export const baseDropRate = (LUK: number) => Math.floor(LUK / 5);
+export const dropRateMultiplierFromLUK = (LUK: number) =>
+  Math.floor(LUK / 5) / 100;
 
 // ATK
 
@@ -479,8 +465,9 @@ export const nakedDodge = (level: number, totalAGI: number) =>
 // physical, magic, and elemental resistance
 
 export const resistance = (value: number) => {
-  if (value > 50) {
-    return resistancePenalty(value, 50, 2);
+  if (value > 0.5) {
+    const initial = value * 100;
+    return resistancePenalty(initial, 50, 2);
   } else {
     return value;
   }
@@ -495,7 +482,7 @@ const resistancePenalty = (
     const value = 50 / penalty;
     return resistancePenalty(raw - 50, acc + value, penalty * 2);
   } else {
-    return Math.floor(acc);
+    return Math.floor(acc) / 100;
   }
 };
 
@@ -549,3 +536,4 @@ export const SUB_WEAPON_ARROW_PHYSICAL_DEFENSE = -0.25;
 // scratch
 
 console.log(chanceToPreventDegradation(255));
+console.log(resistance(2));
