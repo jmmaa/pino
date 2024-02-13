@@ -1,35 +1,7 @@
 // this is mostly just for semantics, but its basically just calculating
 // the multiplier, base, and flat values into total
-
-export const totalDEX = (
-  baseDEX: number,
-  percentDEX: number,
-  flatDEX: number
-) => Math.floor(baseDEX * (1 + percentDEX) + flatDEX);
-
-export const totalSTR = (
-  baseSTR: number,
-  percentSTR: number,
-  flatSTR: number
-) => Math.floor(baseSTR * (1 + percentSTR) + flatSTR);
-
-export const totalINT = (
-  baseINT: number,
-  percentINT: number,
-  flatINT: number
-) => Math.floor(baseINT * (1 + percentINT) + flatINT);
-
-export const totalAGI = (
-  baseAGI: number,
-  percentAGI: number,
-  flatAGI: number
-) => Math.floor(baseAGI * (1 + percentAGI) + flatAGI);
-
-export const totalVIT = (
-  baseVIT: number,
-  percentVIT: number,
-  flatVIT: number
-) => Math.floor(baseVIT * (1 + percentVIT) + flatVIT);
+export const total = (base: number, percent: number, flat: number) =>
+  Math.floor(base * (percent / 100) + flat);
 
 // accuracy
 export const baseAccuracy = (level: number, totalDEX: number) =>
