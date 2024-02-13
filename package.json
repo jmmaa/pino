@@ -1,6 +1,6 @@
 {
   "name": "@jmmaa/pino",
-  "version": "0.0.2-dev",
+  "version": "0.0.3-dev",
   "description": "Collection of formulas in Toram Online",
   "main": "lib/index.main.js",
   "module": "lib/index.esm.js",
