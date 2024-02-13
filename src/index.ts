@@ -1,475 +1,499 @@
+// this is mostly just for semantics, but its basically just calculating
+// the percent, base, and flat values into total
+
+export const totalDEX = (
+  baseDEX: number,
+  percentDEX: number,
+  flatDEX: number
+) => Math.floor(baseDEX * (1 + percentDEX) + flatDEX);
+
+export const totalSTR = (
+  baseSTR: number,
+  percentSTR: number,
+  flatSTR: number
+) => Math.floor(baseSTR * (1 + percentSTR) + flatSTR);
+
+export const totalINT = (
+  baseINT: number,
+  percentINT: number,
+  flatINT: number
+) => Math.floor(baseINT * (1 + percentINT / 100) + flatINT);
+
+export const totalAGI = (
+  baseAGI: number,
+  percentAGI: number,
+  flatAGI: number
+) => Math.floor(baseAGI * (1 + percentAGI / 100) + flatAGI);
+
+export const totalVIT = (
+  baseVIT: number,
+  percentVIT: number,
+  flatVIT: number
+) => Math.floor(baseVIT * (1 + percentVIT / 100) + flatVIT);
+
 // accuracy
-export const calculateBaseAccuracy = (level: number, DEX: number) =>
-  Math.floor(level + DEX);
+export const baseAccuracy = (level: number, totalDEX: number) =>
+  Math.floor(level + totalDEX);
 
 // base attack speed
-export const calculateOneHandedSwordBaseAttackSpeed = (
+export const oneHandedSwordBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number
-) => Math.floor(100 + level + 4 * AGI + (AGI + STR - 1) / 5);
+  totalAGI: number,
+  totalSTR: number
+) => Math.floor(100 + level + 4 * totalAGI + (totalAGI + totalSTR - 1) / 5);
 
-export const calculateTwoHandedSwordBaseAttackSpeed = (
+export const twoHandedSwordBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number
-) => Math.floor(50 + level + 2 * AGI + (AGI + STR - 1) / 5);
+  totalAGI: number,
+  totalSTR: number
+) => Math.floor(50 + level + 2 * totalAGI + (totalAGI + totalSTR - 1) / 5);
 
-export const calculateDualWieldBaseAttackSpeed = (
+export const dualWieldBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number
-) => Math.floor(100 + level + 4 * AGI + (AGI + STR - 1) / 5);
+  totalAGI: number,
+  totalSTR: number
+) => Math.floor(100 + level + 4 * totalAGI + (totalAGI + totalSTR - 1) / 5);
 
-export const calculateBowBaseAttackSpeed = (
+export const bowBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  DEX: number
-) => Math.floor(75 + level + 3 * AGI + (AGI + 2 * DEX - 1) / 10);
+  totalAGI: number,
+  totalDEX: number
+) => Math.floor(75 + level + 3 * totalAGI + (totalAGI + 2 * totalDEX - 1) / 10);
 
-export const calculateBowgunBaseAttackSpeed = (
+export const bowgunBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  DEX: number
-) => Math.floor(30 + level + 2.2 * AGI + 0.2 * DEX);
+  totalAGI: number,
+  totalDEX: number
+) => Math.floor(30 + level + 2.2 * totalAGI + 0.2 * totalDEX);
 
-export const calculateStaffBaseAttackSpeed = (
+export const staffBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  INT: number
-) => Math.floor(60 + level + AGI + (4 * AGI + INT - 1) / 5);
+  totalAGI: number,
+  totalINT: number
+) => Math.floor(60 + level + totalAGI + (4 * totalAGI + totalINT - 1) / 5);
 
-export const calculateMagicDeviceBaseAttackSpeed = (
+export const MagicDeviceBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  INT: number
-) => Math.floor(90 + level + 4 * AGI + (INT - 1) / 5);
+  totalAGI: number,
+  totalINT: number
+) => Math.floor(90 + level + 4 * totalAGI + (totalINT - 1) / 5);
 
-export const calculateKnuckleBaseAttackSpeed = (
+export const knuckleBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number,
-  DEX: number
-) => Math.floor(120 + level + 4.6 * AGI + DEX / 10 + STR / 10);
+  totalAGI: number,
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(120 + level + 4.6 * totalAGI + totalDEX / 10 + totalSTR / 10);
 
-export const calculateKatanaBaseAttackSpeed = (
+export const katanaBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number
-) => Math.floor(200 + level + 3.9 * AGI + 0.3 * STR);
+  totalAGI: number,
+  totalSTR: number
+) => Math.floor(200 + level + 3.9 * totalAGI + 0.3 * totalSTR);
 
-export const calculateHalberdBaseAttackSpeed = (
+export const halberdBaseAttackSpeed = (
   level: number,
-  AGI: number,
-  STR: number
-) => Math.floor(25 + level + 3.5 * AGI + 0.2 * STR);
+  totalAGI: number,
+  totalSTR: number
+) => Math.floor(25 + level + 3.5 * totalAGI + 0.2 * totalSTR);
 
-export const calculateBareHandBaseAttackSpeed = (level: number, AGI: number) =>
-  Math.floor(1000 + level + 9.6 * AGI);
+export const bareHandBaseAttackSpeed = (level: number, totalAGI: number) =>
+  Math.floor(1000 + level + 9.6 * totalAGI);
 
-export const calculateActionTimeReduction = (attackSpeed: number) => {
-  const raw = Math.floor((attackSpeed - 1000) / 180);
-
-  return raw > 50 ? 0.5 : raw / 100;
-};
+export const actionTimeReduction = (totalAttackSpeed: number) =>
+  Math.floor((totalAttackSpeed - 1000) / 180) > 50
+    ? 0.5
+    : Math.floor((totalAttackSpeed - 1000) / 180) / 100;
 
 // max hp
 
-export const calculateBaseMaxHP = (level: number, VIT: number) =>
-  Math.floor(93 + ((VIT + 22.4) * level) / 3);
+export const baseMaxHP = (level: number, totalVIT: number) =>
+  Math.floor(93 + ((totalVIT + 22.4) * level) / 3);
 
 // max mp
 
-export const calculateBaseMaxMP = (level: number, INT: number, TEC: number) =>
+// leave TEC as only "TEC" unless theres other calculations that increase TEC.
+// if there is, switch this to "totalTEC"
+export const baseMaxMP = (level: number, totalINT: number, TEC: number) =>
   Math.floor(
-    TEC > 0 ? 100 + level + INT / 10 + (TEC - 1) : 100 + level + INT / 10
+    TEC > 0
+      ? 100 + level + totalINT / 10 + (TEC - 1)
+      : 100 + level + totalINT / 10
   );
 
 // ailment resistance
 
-export const calculateBaseAilmentResistance = (MTL: number) =>
-  Math.floor(MTL / 3.4);
+// leave MTL as only "MTL" unless theres other calculations that increase MTL.
+// if there is, switch this to "totalMTL"
+export const baseAilmentResistance = (MTL: number) => Math.floor(MTL / 3.4);
 
 // critical rate
 
-export const calculateBaseCriticalRate = (CRT: number) =>
-  Math.floor(25 + CRT / 3.4);
+// leave CRT as only "CRT" unless theres other calculations that increase CRT.
+// if there is, switch this to "totalCRT"
+export const baseCriticalRate = (CRT: number) => Math.floor(25 + CRT / 3.4);
 
 // critical damage
 
-export const calculateBaseCriticalDamage = (AGI: number, STR: number) =>
-  Math.floor(STR >= AGI ? 150 + STR / 5 : 150 + (STR + AGI) / 10);
+export const baseCriticalDamage = (totalAGI: number, totalSTR: number) =>
+  Math.floor(
+    totalSTR >= totalAGI ? 150 + totalSTR / 5 : 150 + (totalSTR + totalAGI) / 10
+  );
 
 // cast speed
 
-export const calculateBaseCastSpeed = (
+export const baseCastSpeed = (
   level: number,
-  AGI: number,
-  DEX: number
-) => Math.floor(level + 1.16 * AGI + 2.94 * DEX);
+  totalAGI: number,
+  totalDEX: number
+) => Math.floor(level + 1.16 * totalAGI + 2.94 * totalDEX);
 
-export const calculateCastTimeReduction = (castSpeed: number) =>
-  castSpeed > 1000
-    ? (((castSpeed - 1000) / 90) * 0.5 + 50) / 100
-    : castSpeed / 20 / 100;
+export const castTimeReduction = (totalCastSpeed: number) =>
+  totalCastSpeed > 1000
+    ? (((totalCastSpeed - 1000) / 90) * 0.5 + 50) / 100
+    : totalCastSpeed / 20 / 100;
 
 // ampr
 
-export const calculateAttackMPRecovery = (maxMP: number) =>
-  Math.floor(10 + maxMP / 100);
+export const attackMPRecovery = (totalMaxMP: number) =>
+  Math.floor(10 + totalMaxMP / 100);
 
 // weapon attack
 
-export const calculateWeaponAttackRefinementBonus = (
-  refinementValue: number,
+export const refinementBonusWeaponAttack = (
+  refinement: number,
   baseWeaponAttack: number
-) => {
-  const percent = refinementValue ** 2 / 100;
+) => Math.floor(baseWeaponAttack * (refinement ** 2 / 100) + refinement);
 
-  const flat = refinementValue;
-
-  const refinementBonus = Math.floor(baseWeaponAttack * percent + flat);
-
-  return refinementBonus;
-};
-
-export const calculateSubWeaponAttackRefinementBonus = (
-  refinementValue: number,
+export const refinementBonusSubWeaponAttack = (
+  refinement: number,
   baseSubWeaponAttack: number
-) => {
+) =>
   // the actual calculation based on phantom library is:
   // Sub Weapon ATK = Attack value of subhand sword *
   // (1 + Weapon ATK%/100 + refine of weapon²/200) + refine of weapon + flat Weapon ATK
   // however it seems like its an inconsistency in the coryn.club example, imma search more on this.
 
-  const percent = refinementValue ** 2 / 200;
-
-  const flat = refinementValue;
-
-  return Math.floor(baseSubWeaponAttack * percent + flat);
-};
+  Math.floor(baseSubWeaponAttack * (refinement ** 2 / 200) + refinement);
 
 // stability
 
-export const calculateOneHandedSwordStability = (
+export const oneHandedSwordStability = (
   weaponStability: number,
-  STR: number,
-  DEX: number
-) => Math.floor(weaponStability + (STR + 3 * DEX) / 40);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(weaponStability + (totalSTR + 3 * totalDEX) / 40);
 
-export const calculateTwoHandedSwordStability = (
+export const twoHandedSwordStability = (
   weaponStability: number,
-  DEX: number
-) => Math.floor(weaponStability + DEX / 10);
+  totalDEX: number
+) => Math.floor(weaponStability + totalDEX / 10);
 
 // essentially the same to ohs stab
-export const calculateDualWieldStability = (
+export const dualWieldStability = (
   weaponStability: number,
-  STR: number,
-  DEX: number
-) => Math.floor(weaponStability + (STR + 3 * DEX) / 40);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(weaponStability + (totalSTR + 3 * totalDEX) / 40);
 
-export const calculateDualWieldSubStability = (
+export const dualWieldSubStability = (
   subWeaponStability: number,
-  STR: number,
-  AGI: number
-) => Math.floor(subWeaponStability / 2 + (3 * STR + 2 * AGI) / 50);
+  totalSTR: number,
+  totalAGI: number
+) => Math.floor(subWeaponStability / 2 + (3 * totalSTR + 2 * totalAGI) / 50);
 
-export const calculateBowStability = (
+export const bowStability = (
   weaponStability: number,
-  STR: number,
-  DEX: number
-) => Math.floor(weaponStability + (STR + DEX) / 20);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(weaponStability + (totalSTR + totalDEX) / 20);
 
-export const calculateBowWithArrowStability = (
-  weaponStability: number,
-  arrowStability: number,
-  STR: number,
-  DEX: number
-) => calculateBowStability(weaponStability, STR, DEX) + arrowStability;
-
-export const calculateBowgunWithArrowStability = (
+export const bowWithArrowStability = (
   weaponStability: number,
   arrowStability: number,
-  STR: number,
-  DEX: number
-) => calculateBowStability(weaponStability, STR, DEX) + 0.5 * arrowStability;
+  totalSTR: number,
+  totalDEX: number
+) => bowStability(weaponStability, totalSTR, totalDEX) + arrowStability;
 
-export const calculateBowgunStability = (
+export const bowgunWithArrowStability = (
   weaponStability: number,
-  STR: number
-) => Math.floor(weaponStability + STR / 20);
+  arrowStability: number,
+  totalSTR: number,
+  totalDEX: number
+) => bowStability(weaponStability, totalSTR, totalDEX) + 0.5 * arrowStability;
 
-export const calculateStaffStability = (weaponStability: number, STR: number) =>
-  Math.floor(weaponStability + STR / 20);
+export const bowgunStability = (weaponStability: number, totalSTR: number) =>
+  Math.floor(weaponStability + totalSTR / 20);
 
-export const calculateMagicDeviceStability = (
+export const staffStability = (weaponStability: number, totalSTR: number) =>
+  Math.floor(weaponStability + totalSTR / 20);
+
+export const magicDeviceStability = (
   weaponStability: number,
-  DEX: number
-) => Math.floor(weaponStability + DEX / 10);
+  totalDEX: number
+) => Math.floor(weaponStability + totalDEX / 10);
 
-export const calculateKnuckleStability = (
+export const knuckleStability = (weaponStability: number, totalDEX: number) =>
+  Math.floor(weaponStability + totalDEX / 40);
+
+export const halberdStability = (
   weaponStability: number,
-  DEX: number
-) => Math.floor(weaponStability + DEX / 40);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(weaponStability + (totalSTR + totalDEX) / 20);
 
-export const calculateHalberdStability = (
+export const katanaStability = (
   weaponStability: number,
-  STR: number,
-  DEX: number
-) => Math.floor(weaponStability + (STR + DEX) / 20);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(weaponStability + (3 * totalSTR + totalDEX) / 40);
 
-export const calculateKatanaStability = (
-  weaponStability: number,
-  STR: number,
-  DEX: number
-) => Math.floor(weaponStability + (3 * STR + DEX) / 40);
+export const bareHandStability = (weaponStability: number, totalDEX: number) =>
+  Math.floor(weaponStability + totalDEX / 3);
 
-export const calculateBareHandStability = (
-  weaponStability: number,
-  DEX: number
-) => Math.floor(weaponStability + DEX / 3);
-
-export const calculateMagicStability = (stability: number) =>
+export const magicStability = (stability: number) =>
   Math.floor((100 + stability) / 2);
 
 // drop rate
-export const calculateBaseDropRate = (LUK: number) => Math.floor(LUK / 5);
+export const baseDropRate = (LUK: number) => Math.floor(LUK / 5);
 
 // ATK
 
-export const calculateOneHandedSwordBaseAttack = (
+export const oneHandedSwordBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  DEX: number
-) => Math.floor(level + STR * 2 + DEX * 2 + weaponAttack);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(level + totalSTR * 2 + totalDEX * 2 + weaponAttack);
 
-export const calculateTwoHandedSwordBaseAttack = (
+export const twoHandedSwordBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  DEX: number
-) => Math.floor(level + STR * 3 + DEX + weaponAttack);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(level + totalSTR * 3 + totalDEX + weaponAttack);
 
-export const calculateDualWieldBaseAttack = (
+export const dualWieldBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  DEX: number,
-  AGI: number
-) => Math.floor(level + STR + 2 * DEX + AGI + weaponAttack);
+  totalSTR: number,
+  totalDEX: number,
+  totalAGI: number
+) => Math.floor(level + totalSTR + 2 * totalDEX + totalAGI + weaponAttack);
 
-export const calculateDualWieldBaseSubAttack = (
+export const dualWieldBaseSubAttack = (
   level: number,
   subWeaponAttack: number,
-  STR: number,
-  AGI: number
-) => Math.floor(level + subWeaponAttack + STR + AGI * 3);
+  totalSTR: number,
+  totalAGI: number
+) => Math.floor(level + subWeaponAttack + totalSTR + totalAGI * 3);
 
-export const calculateBowBaseAttack = (
+export const bowBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  DEX: number
-) => Math.floor(level + 3 * DEX + STR + weaponAttack);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalDEX + totalSTR + weaponAttack);
 
-export const calculateBowgunBaseAttack = (
+export const bowgunBaseAttack = (
   level: number,
   weaponAttack: number,
-  DEX: number
-) => Math.floor(level + weaponAttack + DEX * 4);
+  totalDEX: number
+) => Math.floor(level + weaponAttack + totalDEX * 4);
 
-export const calculateStaffBaseAttack = (
+export const staffBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
+  totalSTR: number,
   INT: number
-) => Math.floor(level + STR * 3 + INT + weaponAttack);
+) => Math.floor(level + totalSTR * 3 + INT + weaponAttack);
 
-export const calculateMagicDeviceBaseAttack = (
+export const magicDeviceBaseAttack = (
   level: number,
   weaponAttack: number,
-  AGI: number,
+  totalAGI: number,
   INT: number
-) => Math.floor(level + 2 * INT + 2 * AGI + weaponAttack);
+) => Math.floor(level + 2 * INT + 2 * totalAGI + weaponAttack);
 
-export const calculateKnuckleBaseAttack = (
+export const knuckleBaseAttack = (
   level: number,
   weaponAttack: number,
-  AGI: number,
-  DEX: number
-) => Math.floor(level + AGI * 2 + 0.5 * DEX + weaponAttack);
+  totalAGI: number,
+  totalDEX: number
+) => Math.floor(level + totalAGI * 2 + 0.5 * totalDEX + weaponAttack);
 
-export const calculateHalberdBaseAttack = (
+export const halberdBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  AGI: number
-) => Math.floor(level + 2.5 * STR + 1.5 * AGI + weaponAttack);
+  totalSTR: number,
+  totalAGI: number
+) => Math.floor(level + 2.5 * totalSTR + 1.5 * totalAGI + weaponAttack);
 
-export const calculateKatanaBaseAttack = (
+export const katanaBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number,
-  DEX: number
-) => Math.floor(level + 1.5 * STR + 2.5 * DEX + weaponAttack);
+  totalSTR: number,
+  totalDEX: number
+) => Math.floor(level + 1.5 * totalSTR + 2.5 * totalDEX + weaponAttack);
 
-export const calculateBareHandBaseAttack = (
+export const bareHandBaseAttack = (
   level: number,
   weaponAttack: number,
-  STR: number
-) => Math.floor(level + STR + 1 + weaponAttack);
+  totalSTR: number
+) => Math.floor(level + totalSTR + 1 + weaponAttack);
 
 // Magic Attack
 
-export const calculateOneHandedSwordBaseMagicAttack = (
+export const oneHandedSwordBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX);
 
-export const calculateTwoHandedSwordBaseMagicAttack = (
+export const twoHandedSwordBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX + 1);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX + 1);
 
-export const calculateDualWieldBaseMagicAttack = (
+export const dualWieldBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX);
 
-export const calculateBowBaseMagicAttack = (
+export const bowBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX);
 
-export const calculateBowgunBaseMagicAttack = (
+export const bowgunBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX);
 
-export const calculateStaffBaseMagicAttack = (
-  level: number,
-  weaponAttack: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 4 * INT + DEX + weaponAttack);
-
-export const calculateMagicDeviceBaseMagicAttack = (
+export const staffBaseMagicAttack = (
   level: number,
   weaponAttack: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 4 * INT + DEX + weaponAttack);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 4 * totalINT + totalDEX + weaponAttack);
 
-export const calculateKnuckleBaseMagicAttack = (
+export const magicDeviceBaseMagicAttack = (
   level: number,
   weaponAttack: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 4 * INT + DEX + 0.5 * weaponAttack);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 4 * totalINT + totalDEX + weaponAttack);
 
-export const calculateHalberdBaseMagicAttack = (
+export const knuckleBaseMagicAttack = (
   level: number,
+  weaponAttack: number,
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 4 * totalINT + totalDEX + 0.5 * weaponAttack);
 
-  INT: number,
-  DEX: number,
-  AGI: number
-) => Math.floor(level + 2 * INT + DEX + AGI);
-
-export const calculateKatanaBaseMagicAttack = (
+export const halberdBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 1.5 * INT + DEX);
+  totalINT: number,
+  totalDEX: number,
+  totalAGI: number
+) => Math.floor(level + 2 * totalINT + totalDEX + totalAGI);
 
-export const calculateBareHandBaseMagicAttack = (
+export const katanaBaseMagicAttack = (
   level: number,
-  INT: number,
-  DEX: number
-) => Math.floor(level + 3 * INT + DEX + 1);
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 1.5 * totalINT + totalDEX);
+
+export const bareHandBaseMagicAttack = (
+  level: number,
+  totalINT: number,
+  totalDEX: number
+) => Math.floor(level + 3 * totalINT + totalDEX + 1);
 
 // armors
 
-export const calculateNormalArmorDefense = (
+export const normalArmorDefense = (
   level: number,
-  VIT: number,
+  totalVIT: number,
   equipmentDefense: number
-) => level + VIT + equipmentDefense;
+) => level + totalVIT + equipmentDefense;
 
-export const calculateNormalArmorMagicDefense = (
+export const normalArmorMagicDefense = (
   level: number,
   INT: number,
   equipmentDefense: number
 ) => level + INT + equipmentDefense;
 
-export const calculateNormalArmorDodge = (level: number, AGI: number) =>
-  level + AGI;
+export const normalArmorDodge = (level: number, totalAGI: number) =>
+  level + totalAGI;
 
-export const calculateLightArmorDefense = (
+export const lightArmorDefense = (
   level: number,
-  VIT: number,
+  totalVIT: number,
   equipmentDefense: number
-) => Math.floor(0.8 * level + 0.25 * VIT + equipmentDefense);
+) => Math.floor(0.8 * level + 0.25 * totalVIT + equipmentDefense);
 
-export const calculateLightArmorMagicDefense = (
+export const lightArmorMagicDefense = (
   level: number,
   INT: number,
   equipmentDefense: number
 ) => Math.floor(0.8 * level + 0.25 * INT + equipmentDefense);
 
-export const calculateLightArmorDodge = (level: number, AGI: number) =>
-  Math.floor(1.25 * level + 1.75 * AGI + 30);
+export const lightArmorDodge = (level: number, totalAGI: number) =>
+  Math.floor(1.25 * level + 1.75 * totalAGI + 30);
 
-export const calculateHeavyArmorDefense = (
+export const heavyArmorDefense = (
   level: number,
-  VIT: number,
+  totalVIT: number,
   equipmentDefense: number
-) => Math.floor(1.2 * level + 2 * VIT + equipmentDefense);
+) => Math.floor(1.2 * level + 2 * totalVIT + equipmentDefense);
 
-export const calculateHeavyArmorMagicDefense = (
+export const heavyArmorMagicDefense = (
   level: number,
   INT: number,
   equipmentDefense: number
 ) => Math.floor(1.2 * level + 2 * INT + equipmentDefense);
 
-export const calculateHeavyArmorDodge = (level: number, AGI: number) =>
-  Math.floor(0.5 * level + 0.75 * AGI - 15);
+export const heavyArmorDodge = (level: number, totalAGI: number) =>
+  Math.floor(0.5 * level + 0.75 * totalAGI - 15);
 
-export const calculateArmorLessDefense = (
+export const nakedDefense = (
   level: number,
-  VIT: number,
+  totalVIT: number,
   equipmentDefense: number
-) => Math.floor(0.4 * level + 0.1 * VIT + equipmentDefense);
+) => Math.floor(0.4 * level + 0.1 * totalVIT + equipmentDefense);
 
-export const calculateArmorLessMagicDefense = (
+export const nakedMagicDefense = (
   level: number,
-  INT: number,
+  totalINT: number,
   equipmentDefense: number
-) => Math.floor(0.4 * level + 0.1 * INT + equipmentDefense);
+) => Math.floor(0.4 * level + 0.1 * totalINT + equipmentDefense);
 
-export const calculateArmorLessDodge = (level: number, AGI: number) =>
-  Math.floor(1.5 * level + 2 * AGI + 75);
+export const nakedDodge = (level: number, totalAGI: number) =>
+  Math.floor(1.5 * level + 2 * totalAGI + 75);
 
 // physical, magic, and elemental resistance
 
-export const calculateResistance = (value: number) => {
+export const resistance = (value: number) => {
   if (value > 50) {
-    return __resistance(value, 50, 2);
+    return resistancePenalty(value, 50, 2);
   } else {
     return value;
   }
 };
 
-const __resistance = (left: number, acc: number, penalty: number): number => {
-  if (left > 50) {
+const resistancePenalty = (
+  raw: number,
+  acc: number,
+  penalty: number
+): number => {
+  if (raw > 50) {
     const value = 50 / penalty;
-    return __resistance(left - 50, acc + value, penalty * 2);
+    return resistancePenalty(raw - 50, acc + value, penalty * 2);
   } else {
     return Math.floor(acc);
   }
@@ -477,25 +501,30 @@ const __resistance = (left: number, acc: number, penalty: number): number => {
 
 // barrier cooldown
 
-export const calculateBarrierCooldown = (value: number) => value / -5 + 30;
+// hard cap is rumored to be 10 secs cooldown, need to confirm this before changing
+// this func
+export const barrierCooldown = (value: number) => Math.floor(value / -5 + 30);
 
 // degradation chance
 
-export const calculateChanceToPreventDegradation = (LUK: number) =>
+// leave LUK as only "LUK" unless theres other calculations that increase LUK.
+// if there is, switch this to "totalLUK"
+export const chanceToPreventDegradation = (LUK: number) =>
   Math.floor(LUK / 3.4);
 
 // player difficulty
 
-export const calculatePlayerCraftingDifficulty = (
+// leave TEC as only "TEC" unless theres other calculations that increase TEC.
+// if there is, switch this to "totalTEC"
+export const playerCraftingDifficulty = (
   proficiency: number,
   TEC: number,
-  DEX: number
-) => proficiency + TEC / 2 + DEX / 6;
+  totalDEX: number
+) => proficiency + TEC / 2 + totalDEX / 6;
 
 // INT DTE
 
-export const calculateBaseDamageToElement = (INT: number) =>
-  Math.floor(INT / 10);
+export const baseDamageToElement = (INT: number) => Math.floor(INT / 10);
 
 // constant values
 
@@ -509,14 +538,14 @@ export const DUAL_WIELD_CRITICAL_RATE = -0.55;
 
 export const SUB_WEAPON_SHIELD_ATTACK_SPEED = -0.5;
 
-export const SUB_WEAPON_MAGIC_DEVICE_ATTACK = -0.15;
+export const SUB_WEAPON_MagiC_DEVICE_ATTACK = -0.15;
 
-export const SUB_WEAPON_KNUCKLE_MAGIC_ATTACK = -0.15;
+export const SUB_WEAPON_KNUCKLE_MagiC_ATTACK = -0.15;
 
-export const SUB_WEAPON_ARROW_MAGIC_DEFENSE = -0.25;
+export const SUB_WEAPON_ARROW_MagiC_DEFENSE = -0.25;
 
 export const SUB_WEAPON_ARROW_PHYSICAL_DEFENSE = -0.25;
 
 // scratch
 
-console.log(calculateChanceToPreventDegradation(255));
+console.log(chanceToPreventDegradation(255));
