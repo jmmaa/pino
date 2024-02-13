@@ -11,7 +11,7 @@ test("CSPD", () => {
   const percentAgi = 1 + 0.1;
   const totalAgi = Math.floor(baseAgi * percentAgi);
 
-  const baseCastSpeed = pino.calculateBaseCastSpeed(level, totalAgi, totalDex);
+  const baseCastSpeed = pino.baseCastSpeed(level, totalAgi, totalDex);
   const percentCastSpeed = 1 + (1 + 0.05 + 0.35 + 0.75 + -0.7 + 0.21);
   const flatCastSpeed = 1000;
 
@@ -24,4 +24,11 @@ test("CSPD", () => {
 
   expect(totalCastSpeed).toEqual(5378);
   expect(totalCastSpeedWithHighCycle).toEqual(10043);
+});
+
+test("MaxHP", () => {
+  const level = 275;
+  const totalVIT = 1;
+
+  expect(pino.baseMaxHP(level, totalVIT)).toEqual(2238);
 });
