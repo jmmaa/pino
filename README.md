@@ -7,7 +7,18 @@ A collection of Toram Online formulas.
 ### Install
 
 ```
-npm i @jmmaa/pino@0.0.1-dev
+npm i @jmmaa/pino@0.0.2-dev
+```
+
+### Example
+
+```typescript
+import * as pino from "@jmmaa/pino";
+
+const level = 275;
+const totalVIT = 1;
+
+pino.baseMaxHP(level, totalVIT); // 2238
 ```
 
 ### Credits
