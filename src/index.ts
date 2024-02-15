@@ -132,13 +132,16 @@ export const attackMPRecovery = (totalMaxMP: number) =>
 
 // weapon attack
 
-export const refinementBonusWeaponAttack = (
-  refinement: number,
+export const weaponRefinementBonusWeaponAttack = (
+  weaponRefinement: number,
   baseWeaponAttack: number
-) => Math.floor(baseWeaponAttack * (refinement ** 2 / 100) + refinement);
+) =>
+  Math.floor(
+    baseWeaponAttack * (weaponRefinement ** 2 / 100) + weaponRefinement
+  );
 
-export const refinementBonusSubWeaponAttack = (
-  refinement: number,
+export const subWeaponRefinementBonusSubWeaponAttack = (
+  weaponRefinement: number,
   baseSubWeaponAttack: number
 ) =>
   // the actual calculation based on phantom library is:
@@ -146,7 +149,9 @@ export const refinementBonusSubWeaponAttack = (
   // (1 + Weapon ATK%/100 + refine of weapon²/200) + refine of weapon + flat Weapon ATK
   // however it seems like its an inconsistency in the coryn.club example, imma search more on this.
 
-  Math.floor(baseSubWeaponAttack * (refinement ** 2 / 200) + refinement);
+  Math.floor(
+    baseSubWeaponAttack * (weaponRefinement ** 2 / 200) + weaponRefinement
+  );
 
 // stability
 
@@ -224,86 +229,86 @@ export const dropRateMultiplierFromLUK = (LUK: number) =>
 
 export const oneHandedSwordBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalDEX: number
-) => Math.floor(level + totalSTR * 2 + totalDEX * 2 + weaponAttack);
+) => Math.floor(level + totalSTR * 2 + totalDEX * 2 + totalWeaponAttack);
 
 export const twoHandedSwordBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalDEX: number
-) => Math.floor(level + totalSTR * 3 + totalDEX + weaponAttack);
+) => Math.floor(level + totalSTR * 3 + totalDEX + totalWeaponAttack);
 
 export const dualWieldBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalDEX: number,
   totalAGI: number
-) => Math.floor(level + totalSTR + 2 * totalDEX + totalAGI + weaponAttack);
+) => Math.floor(level + totalSTR + 2 * totalDEX + totalAGI + totalWeaponAttack);
 
 export const dualWieldBaseSubAttack = (
   level: number,
-  subWeaponAttack: number,
+  totalSubWeaponAttack: number,
   totalSTR: number,
   totalAGI: number
-) => Math.floor(level + subWeaponAttack + totalSTR + totalAGI * 3);
+) => Math.floor(level + totalSubWeaponAttack + totalSTR + totalAGI * 3);
 
 export const bowBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalDEX: number
-) => Math.floor(level + 3 * totalDEX + totalSTR + weaponAttack);
+) => Math.floor(level + 3 * totalDEX + totalSTR + totalWeaponAttack);
 
 export const bowgunBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalDEX: number
-) => Math.floor(level + weaponAttack + totalDEX * 4);
+) => Math.floor(level + totalWeaponAttack + totalDEX * 4);
 
 export const staffBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalINT: number
-) => Math.floor(level + totalSTR * 3 + totalINT + weaponAttack);
+) => Math.floor(level + totalSTR * 3 + totalINT + totalWeaponAttack);
 
 export const magicDeviceBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalAGI: number,
   totalINT: number
-) => Math.floor(level + 2 * totalINT + 2 * totalAGI + weaponAttack);
+) => Math.floor(level + 2 * totalINT + 2 * totalAGI + totalWeaponAttack);
 
 export const knuckleBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalAGI: number,
   totalDEX: number
-) => Math.floor(level + totalAGI * 2 + 0.5 * totalDEX + weaponAttack);
+) => Math.floor(level + totalAGI * 2 + 0.5 * totalDEX + totalWeaponAttack);
 
 export const halberdBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalAGI: number
-) => Math.floor(level + 2.5 * totalSTR + 1.5 * totalAGI + weaponAttack);
+) => Math.floor(level + 2.5 * totalSTR + 1.5 * totalAGI + totalWeaponAttack);
 
 export const katanaBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number,
   totalDEX: number
-) => Math.floor(level + 1.5 * totalSTR + 2.5 * totalDEX + weaponAttack);
+) => Math.floor(level + 1.5 * totalSTR + 2.5 * totalDEX + totalWeaponAttack);
 
 export const bareHandBaseAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalSTR: number
-) => Math.floor(level + totalSTR + 1 + weaponAttack);
+) => Math.floor(level + totalSTR + 1 + totalWeaponAttack);
 
 // Magic Attack
 
@@ -339,24 +344,24 @@ export const bowgunBaseMagicAttack = (
 
 export const staffBaseMagicAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalINT: number,
   totalDEX: number
-) => Math.floor(level + 4 * totalINT + totalDEX + weaponAttack);
+) => Math.floor(level + 4 * totalINT + totalDEX + totalWeaponAttack);
 
 export const magicDeviceBaseMagicAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalINT: number,
   totalDEX: number
-) => Math.floor(level + 4 * totalINT + totalDEX + weaponAttack);
+) => Math.floor(level + 4 * totalINT + totalDEX + totalWeaponAttack);
 
 export const knuckleBaseMagicAttack = (
   level: number,
-  weaponAttack: number,
+  totalWeaponAttack: number,
   totalINT: number,
   totalDEX: number
-) => Math.floor(level + 4 * totalINT + totalDEX + 0.5 * weaponAttack);
+) => Math.floor(level + 4 * totalINT + totalDEX + 0.5 * totalWeaponAttack);
 
 export const halberdBaseMagicAttack = (
   level: number,
