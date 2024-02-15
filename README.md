@@ -7,7 +7,7 @@ A collection of Toram Online formulas.
 ### Install
 
 ```
-npm i @jmmaa/pino@0.0.2-dev
+npm i @jmmaa/pino
 ```
 
 ### Example
